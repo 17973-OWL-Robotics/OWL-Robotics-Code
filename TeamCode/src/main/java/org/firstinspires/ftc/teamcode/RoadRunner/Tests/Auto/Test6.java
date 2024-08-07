@@ -25,7 +25,7 @@ public class Test6 extends LinearOpMode {
     public void runOpMode() {
 
         //Add Mecanum Drive
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(-48, 0, Math.toRadians(0)));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(-48, 0, Math.toRadians(90)));
 
         //Create a new Action
         Action testAction;

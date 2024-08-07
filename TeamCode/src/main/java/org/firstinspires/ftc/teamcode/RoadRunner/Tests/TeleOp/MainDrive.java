@@ -44,6 +44,9 @@ public class MainDrive extends LinearOpMode{
         double y;
         double x;
 
+        // Create a speed multiplier for strafe turning
+        double strafe = 0.15;
+
         //Create GamePad Trigger doubles
         double l;
         double r;
@@ -84,8 +87,8 @@ public class MainDrive extends LinearOpMode{
                 } else if (l > 0.2 || l < -0.2 || r > 0.2 || r < -0.2) {
                     frontLeftMotor.setPower(l - r);
                     frontRightMotor.setPower(-l + r);
-                    backLeftMotor.setPower(-l + r);
-                    backRightMotor.setPower(l - r);
+                    backLeftMotor.setPower((-l + r) - (strafe * (l + r)));
+                    backRightMotor.setPower((l - r) - (strafe * (l + r)));
                 } else {
                     frontLeftMotor.setPower(0);
                     frontRightMotor.setPower(0);
