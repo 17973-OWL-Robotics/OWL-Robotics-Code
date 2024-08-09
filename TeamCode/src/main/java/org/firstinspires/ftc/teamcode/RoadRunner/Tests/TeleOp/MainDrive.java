@@ -45,7 +45,7 @@ public class MainDrive extends LinearOpMode{
         double x;
 
         // Create a speed multiplier for strafe turning
-        double strafe = 0.15;
+        double strafe = 0.23;
 
         //Create GamePad Trigger doubles
         double l;
@@ -79,21 +79,41 @@ public class MainDrive extends LinearOpMode{
                 perpPosition = perp.getPositionAndVelocity().position;
 
                 //Drive Code
-                if (y > 0.2 || y < -0.2 || x > 0.2 || x < -0.2) {
-                    frontLeftMotor.setPower(y - x);
-                    frontRightMotor.setPower(y + x);
-                    backLeftMotor.setPower(y - x);
-                    backRightMotor.setPower(y + x);
-                } else if (l > 0.2 || l < -0.2 || r > 0.2 || r < -0.2) {
-                    frontLeftMotor.setPower(l - r);
-                    frontRightMotor.setPower(-l + r);
-                    backLeftMotor.setPower((-l + r) - (strafe * (l + r)));
-                    backRightMotor.setPower((l - r) - (strafe * (l + r)));
+
+                if (gamepad1.left_bumper) {
+                    if (y > 0.2 || y < -0.2 || x > 0.2 || x < -0.2) {
+                        frontLeftMotor.setPower((y - x) * 0.3);
+                        frontRightMotor.setPower((y + x) * 0.3);
+                        backLeftMotor.setPower((y - x) * 0.3);
+                        backRightMotor.setPower((y + x) * 0.3);
+                    } else if (l > 0.2 || l < -0.2 || r > 0.2 || r < -0.2) {
+                        frontLeftMotor.setPower((l - r) * 0.3);
+                        frontRightMotor.setPower((-l + r) * 0.3);
+                        backLeftMotor.setPower(((-l + r) - (strafe * (l + r))) * 0.3);
+                        backRightMotor.setPower(((l - r) - (strafe * (l + r))) * 0.3);
+                    } else {
+                        frontLeftMotor.setPower(0);
+                        frontRightMotor.setPower(0);
+                        backLeftMotor.setPower(0);
+                        backRightMotor.setPower(0);
+                    }
                 } else {
-                    frontLeftMotor.setPower(0);
-                    frontRightMotor.setPower(0);
-                    backLeftMotor.setPower(0);
-                    backRightMotor.setPower(0);
+                    if (y > 0.2 || y < -0.2 || x > 0.2 || x < -0.2) {
+                        frontLeftMotor.setPower(y - x);
+                        frontRightMotor.setPower(y + x);
+                        backLeftMotor.setPower(y - x);
+                        backRightMotor.setPower(y + x);
+                    } else if (l > 0.2 || l < -0.2 || r > 0.2 || r < -0.2) {
+                        frontLeftMotor.setPower(l - r);
+                        frontRightMotor.setPower(-l + r);
+                        backLeftMotor.setPower((-l + r) - (strafe * (l + r)));
+                        backRightMotor.setPower((l - r) - (strafe * (l + r)));
+                    } else {
+                        frontLeftMotor.setPower(0);
+                        frontRightMotor.setPower(0);
+                        backLeftMotor.setPower(0);
+                        backRightMotor.setPower(0);
+                    }
                 }
 
                 telemetry.addData("Par0 = ", par0Position);
